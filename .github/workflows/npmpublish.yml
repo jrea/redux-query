@@ -25,9 +25,9 @@ jobs:
       - run: yarn install
         env:
           CI: true
-      - run: yarn lerna bootstrap
-      - run: yarn test
-      - run: yarn flow-check
+      # - run: yarn lerna bootstrap
+      # - run: yarn test
+      # - run: yarn flow-check
 
   publish-gpr:
     needs: build
@@ -54,6 +54,6 @@ jobs:
       - run: yarn install
         env:
           CI: true
-      - run: yarn lerna publish --yes
+      - run: yarn lerna publish from-git --yes --no-git-reset
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
