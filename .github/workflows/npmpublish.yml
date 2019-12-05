@@ -54,6 +54,6 @@ jobs:
       - run: yarn install
         env:
           CI: true
-      - run: yarn lerna publish --yes
+      - run: yarn lerna publish --from-git --yes
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
