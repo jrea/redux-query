@@ -34,6 +34,7 @@ jobs:
       - run: yarn install
         env:
           CI: true
-      - run: yarn lerna publish --yes --canary --preid ci --npm-tag=ci --force-publish=*
+      - run: npm install -g cross-env
+      - run: yarn lerna publish --yes --canary --preid ci --npm-tag=ci --force-publish=* --registry https://npm.pkg.github.com/:authToken=${{secrets.GITHUB_TOKEN}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
