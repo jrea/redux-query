@@ -53,8 +53,8 @@ Include the `queryMiddleware` in your store's `applyMiddleware` call. `queryMidd
 
 ```javascript
 import { applyMiddleware, createStore, combineReducers } from 'redux';
-import { entitiesReducer, queriesReducer, queryMiddleware } from 'redux-query';
-import superagentInterface from 'redux-query-interface-superagent';
+import { entitiesReducer, queriesReducer, queryMiddleware } from '@confluentinc/redux-query';
+import superagentInterface from '@confluentinc/redux-query-interface-superagent';
 
 export const getQueries = state => state.queries;
 export const getEntities = state => state.entities;
@@ -79,7 +79,7 @@ Import `Provider` from redux-query-react and render it at the root of your React
 ```javascript
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { Provider as ReduxQueryProvider } from 'redux-query-react';
+import { Provider as ReduxQueryProvider } from '@confluentinc/redux-query-react';
 
 import App from './App';
 import store from './store';

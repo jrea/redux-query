@@ -10,7 +10,7 @@ Even though redux-query, redux-query-react, and redux-query-interface-superagent
 You can import redux-query's Typescript types into your project like this:
 
 ```typescript
-import { QueryConfig } from 'redux-query';
+import { QueryConfig } from '@confluentinc/redux-query';
 ```
 
 ## Disabling typescript

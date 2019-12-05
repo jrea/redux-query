@@ -10,7 +10,7 @@ redux-query, redux-query-react, and redux-query-interface-superagent all come wi
 You can import redux-query's Flow types into your project like so:
 
 ```javascript
-import type { QueryConfig } from 'redux-query/types.js.flow';
+import type { QueryConfig } from '@confluentinc/redux-query/types.js.flow';
 ```
 
 ## Disabling flow

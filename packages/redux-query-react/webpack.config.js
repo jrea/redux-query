@@ -23,15 +23,15 @@ module.exports = {
       commonjs: 'react-redux',
       amd: 'react-redux',
     },
-    'redux-query': {
+    '@confluentinc/redux-query': {
       root: 'ReduxQuery',
-      commonjs2: 'redux-query',
-      commonjs: 'redux-query',
-      amd: 'redux-query',
+      commonjs2: '@confluentinc/redux-query',
+      commonjs: '@confluentinc/redux-query',
+      amd: '@confluentinc/redux-query',
     },
   },
   entry: {
-    'redux-query-react': './src/index.js',
+    '@confluentinc/redux-query-react': './src/index.js',
   },
   output: {
     path: path.join(__dirname, 'dist/umd'),
@@ -53,7 +53,10 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [path.join(__dirname, 'src'), path.join(__dirname, '..', 'redux-query', 'src')],
+        include: [
+          path.join(__dirname, 'src'),
+          path.join(__dirname, '..', '@confluentinc/redux-query', 'src'),
+        ],
       },
     ],
   },

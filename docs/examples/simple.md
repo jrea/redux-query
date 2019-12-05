@@ -29,7 +29,7 @@ render(<App store={store} />, document.getElementById('root'));
 
 ```javascript
 import { applyMiddleware, createStore, combineReducers } from 'redux';
-import { entitiesReducer, queriesReducer, queryMiddleware } from 'redux-query';
+import { entitiesReducer, queriesReducer, queryMiddleware } from '@confluentinc/redux-query';
 
 import mockNetworkInterface from './mock-network-interface';
 
@@ -99,7 +99,7 @@ export const getName = state => state.entities.name;
 ```javascript
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { useRequest, useMutation } from 'redux-query-react';
+import { useRequest, useMutation } from '@confluentinc/redux-query-react';
 
 import * as nameQueryConfigs from '../query-configs/name';
 import * as nameSelectors from '../selectors/name';
@@ -189,7 +189,7 @@ export default ChangeUsernameForm;
 ```javascript
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { Provider as ReduxQueryProvider } from 'redux-query-react';
+import { Provider as ReduxQueryProvider } from '@confluentinc/redux-query-react';
 
 import ChangeUsernameForm from '../components/ChangeUsernameForm';
 import { getQueries } from '../store';

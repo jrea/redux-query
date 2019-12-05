@@ -27,8 +27,8 @@ render(<HackerNews store={store} />, document.getElementById('root'));
 
 ```javascript
 import { applyMiddleware, createStore, combineReducers } from 'redux';
-import { entitiesReducer, queriesReducer, queryMiddleware } from 'redux-query';
-import superagentInterface from 'redux-query-interface-superagent';
+import { entitiesReducer, queriesReducer, queryMiddleware } from '@confluentinc/redux-query';
+import superagentInterface from '@confluentinc/redux-query-interface-superagent';
 
 export const getQueries = state => state.queries;
 export const getEntities = state => state.entities;
@@ -111,7 +111,7 @@ export const getItem = (state, itemId) => {
 ```javascript
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { useRequest } from 'redux-query-react';
+import { useRequest } from '@confluentinc/redux-query-react';
 
 import * as storyQueryConfigs from '../query-configs/stories';
 import * as storySelectors from '../selectors/stories';
@@ -154,7 +154,7 @@ export default Item;
 ```javascript
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { useRequest } from 'redux-query-react';
+import { useRequest } from '@confluentinc/redux-query-react';
 
 import Item from '../components/Item';
 import * as storyQueryConfigs from '../query-configs/stories';
@@ -181,7 +181,7 @@ export default TopStories;
 ```javascript
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { Provider as ReduxQueryProvider } from 'redux-query-react';
+import { Provider as ReduxQueryProvider } from '@confluentinc/redux-query-react';
 
 import TopStories from '../components/TopStories';
 import { getQueries } from '../store';

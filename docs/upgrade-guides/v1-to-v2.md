@@ -57,7 +57,7 @@ The `request` fields in the start actions and stored in the queries reducer stat
 For example, the following 1.x redux-query usage:
 
 ```javascript
-import { removeEntity } from 'redux-query';
+import { removeEntity } from '@confluentinc/redux-query';
 
 dispatch(removeEntity(['dashboardsById', '78dhr8v']));
 ```
@@ -66,7 +66,7 @@ becomes:
 
 ```javascript
 import omit from 'lodash.omit';
-import { updateEntities } from 'redux-query';
+import { updateEntities } from '@confluentinc/redux-query';
 
 dispatch(
   updateEntities({
@@ -82,14 +82,14 @@ dispatch(
 For example, the following 1.x redux-query usage:
 
 ```javascript
-import { getQueryKey } from 'redux-query';
+import { getQueryKey } from '@confluentinc/redux-query';
 const queryKey = getQueryKey(query.url, query.body);
 ```
 
 becomes:
 
 ```javascript
-import { getQueryKey } from 'redux-query';
+import { getQueryKey } from '@confluentinc/redux-query';
 const queryKey = getQueryKey(query);
 ```
 

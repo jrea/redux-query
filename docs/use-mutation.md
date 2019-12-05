@@ -18,7 +18,7 @@ Like `useRequest`, `useMutation` returns a tuple-like array, where the first val
 ```javascript
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { useMutation } from 'redux-query-react';
+import { useMutation } from '@confluentinc/redux-query-react';
 
 const makeCommentReactMutation = (commentId, reactionType) => ({
   url: `/api/comment/${commentId}/react`,

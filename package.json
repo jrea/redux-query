@@ -1,5 +1,5 @@
 {
-  "name": "redux-query-packages",
+  "name": "@confluentinc/redux-query-packages",
   "private": true,
   "scripts": {
     "build": "lerna bootstrap",

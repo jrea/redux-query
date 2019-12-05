@@ -20,8 +20,8 @@ title: connectRequest
 ```javascript
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { querySelectors } from 'redux-query';
-import { connectRequest } from 'redux-query-react';
+import { querySelectors } from '@confluentinc/redux-query';
+import { connectRequest } from '@confluentinc/redux-query-react';
 
 const getQueries = state => state.queries;
 

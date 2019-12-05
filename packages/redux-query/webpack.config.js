@@ -19,7 +19,7 @@ module.exports = {
     },
   },
   entry: {
-    'redux-query': './src/index.js',
+    '@confluentinc/redux-query': './src/index.js',
   },
   output: {
     path: path.join(__dirname, 'dist/umd'),

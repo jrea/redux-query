@@ -3,7 +3,12 @@ import { render, waitForElement, getByTestId, fireEvent } from '@testing-library
 import { Provider, useSelector, connect } from 'react-redux';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 
-import { entitiesReducer, queriesReducer, queryMiddleware, querySelectors } from 'redux-query';
+import {
+  entitiesReducer,
+  queriesReducer,
+  queryMiddleware,
+  querySelectors,
+} from '@confluentinc/redux-query';
 
 import connectRequest from '../../src/components/connect-request';
 

@@ -1,4 +1,4 @@
-declare module 'redux-query-react' {
+declare module '@confluentinc/redux-query-react' {
   import React from 'react';
   import {
     ActionPromiseValue,
@@ -7,10 +7,12 @@ declare module 'redux-query-react' {
     QueryConfig,
     QueryState,
     QueriesSelector,
-  } from 'redux-query';
+  } from '@confluentinc/redux-query';
 
   export type QueryConfigFactory<TEntities> = (...args: any[]) => QueryConfig<TEntities>;
-  export type QueryConfigsFactory<TEntities> = (...args: any[]) => QueryConfig<TEntities> | QueryConfig<TEntities>[];
+  export type QueryConfigsFactory<TEntities> = (
+    ...args: any[]
+  ) => QueryConfig<TEntities> | QueryConfig<TEntities>[];
 
   export interface ConnectRequestOptions {
     forwardRef?: boolean;
@@ -25,7 +27,10 @@ declare module 'redux-query-react' {
     WrappedComponent: React.ComponentType<TProps>,
   ) => React.ComponentType<Omit<TProps, 'forceRequest'>>;
 
-  export type RequestConnector = <TProps extends WithForceRequest<TEntities> = WithForceRequest<TEntities>, TEntities = Entities>(
+  export type RequestConnector = <
+    TProps extends WithForceRequest<TEntities> = WithForceRequest<TEntities>,
+    TEntities = Entities
+  >(
     mapPropsToConfigs: QueryConfigsFactory<TEntities>,
     options?: ConnectRequestOptions,
   ) => ConnectRequestWrapper<TProps, TEntities>;
@@ -37,7 +42,9 @@ declare module 'redux-query-react' {
 
   export type ReduxQueryProvider = React.ComponentType<ProviderProps>;
   export type ActionPromise<TEntities> = Promise<ActionPromiseValue<TEntities>> | undefined;
-  export type UseRequestHook = <TEntities>(queryConfig: QueryConfig<TEntities>) => [QueryState, ForceRequestCallback<TEntities>];
+  export type UseRequestHook = <TEntities>(
+    queryConfig: QueryConfig<TEntities>,
+  ) => [QueryState, ForceRequestCallback<TEntities>];
   export type MutationQueryConfigFactory = <TEntities>(...args: any) => QueryConfig<TEntities>;
   export type RunMutation = <TEntities>(...args: any) => Promise<ActionPromiseValue<TEntities>>;
   export type UseMutationHook = <TEntities>(

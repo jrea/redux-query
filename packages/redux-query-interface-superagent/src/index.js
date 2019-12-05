@@ -1,9 +1,9 @@
 // @flow
 
 import superagent from 'superagent';
-import { httpMethods } from 'redux-query';
+import { httpMethods } from '@confluentinc/redux-query';
 
-import type { NetworkInterface } from 'redux-query/types.js.flow';
+import type { NetworkInterface } from '@confluentinc/redux-query/types.js.flow';
 
 const createRequest = (url, method, body) => {
   switch (method) {

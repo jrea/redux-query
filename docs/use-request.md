@@ -20,7 +20,7 @@ title: useRequest
 ```javascript
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { useRequest } from 'redux-query-react';
+import { useRequest } from '@confluentinc/redux-query-react';
 
 const getNotifications = state => state.entities.notifications;
 

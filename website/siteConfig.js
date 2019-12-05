@@ -21,7 +21,7 @@ const users = [
 ];
 
 const siteConfig = {
-  title: 'redux-query', // Title for your website.
+  title: '@confluentinc/redux-query', // Title for your website.
   tagline: 'A library for managing network state in Redux',
   url: 'https://amplitude.github.io', // Your website URL
   baseUrl: '/redux-query/', // Base URL for your project */
@@ -30,7 +30,7 @@ const siteConfig = {
   //   baseUrl: '/test-site/',
 
   // Used for publishing and more
-  projectName: 'redux-query',
+  projectName: '@confluentinc/redux-query',
   organizationName: 'amplitude',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...

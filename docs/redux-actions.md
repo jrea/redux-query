@@ -10,7 +10,7 @@ Dispatch a mutateAsync action to trigger a [mutation](requests-vs-mutations). mu
 When dispatching a `mutateAsync` action, you can Promise-chain on the returned value from `dispatch`. Here's an example inside a [react-redux container](https://react-redux.js.org/using-react-redux/connect-mapdispatch):
 
 ```javascript
-import { mutateAsync } from 'redux-query';
+import { mutateAsync } from '@confluentinc/redux-query';
 import { updateDashboard } from '../queries/dashboard';
 
 export const updateDashboard = (dashboardId, newName) => {
@@ -61,7 +61,7 @@ To cancel an in-flight query, dispatch a `cancelQuery` action with the [query ke
 **Important**: It is not recommended to cancel mutations. As mutations are potentially "destructive", in that they may change persistent server data, cancelling a mutation query may not actually halt the destructive action from taking place.
 
 ```javascript
-import { cancelQuery } from 'redux-query';
+import { cancelQuery } from '@confluentinc/redux-query';
 
 store.dispatch(cancelQuery('{"url":"/api/playlists"}'));
 ```
@@ -73,7 +73,7 @@ store.dispatch(cancelQuery('{"url":"/api/playlists"}'));
 You can manually update [entities](entities) within the `entitiesReducer` Redux state with this action. The only required parameter is an `update` object map, just like the `update` field in [query configs](query-configs#request-query-config-fields).
 
 ```javascript
-import { updateEntities } from 'redux-query';
+import { updateEntities } from '@confluentinc/redux-query';
 
 store.dispatch(
   updateEntities({

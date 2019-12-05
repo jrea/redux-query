@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, waitForElement, getByTestId, fireEvent } from '@testing-library/react';
 import { Provider, useSelector } from 'react-redux';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
-import { entitiesReducer, queriesReducer, queryMiddleware } from 'redux-query';
+import { entitiesReducer, queriesReducer, queryMiddleware } from '@confluentinc/redux-query';
 
 import useMutation from '../../src/hooks/use-mutation';
 import ReduxQueryProvider from '../../src/components/Provider';
