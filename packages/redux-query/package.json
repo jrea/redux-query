@@ -7,9 +7,9 @@
   "module": "dist/es/index.js",
   "jsnext:main": "dist/es/index.js",
   "scripts": {
-    "build:commonjs": "cross-env NODE_ENV=production cross-env BABEL_ENV=commonjs babel src --out-dir dist/commonjs --ignore test/",
-    "build:es": "cross-env NODE_ENV=production cross-env BABEL_ENV=es babel src --out-dir dist/es --ignore test/",
-    "build:umd": "cross-env NODE_ENV=production webpack --config webpack.config.js --bail",
+    "build:commonjs": "yarn cross-env NODE_ENV=production cross-env BABEL_ENV=commonjs babel src --out-dir dist/commonjs --ignore test/",
+    "build:es": "yarn cross-env NODE_ENV=production cross-env BABEL_ENV=es babel src --out-dir dist/es --ignore test/",
+    "build:umd": "yarn cross-env NODE_ENV=production webpack --config webpack.config.js --bail",
     "build:flow": "cp flow-template dist/commonjs/index.js.flow && cp flow-template dist/es/index.js.flow",
     "build": "yarn clean && yarn run build:commonjs && yarn run build:es && yarn run build:umd && yarn run build:flow",
     "clean": "rimraf dist",
