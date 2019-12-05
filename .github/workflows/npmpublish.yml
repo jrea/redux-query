@@ -5,23 +5,7 @@ on:
     types: [created]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-
-      - run: yarn install
-        env:
-          CI: true
-      # - run: yarn lerna bootstrap
-      # - run: yarn test
-      # - run: yarn flow-check
-
   publish-gpr:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -30,10 +14,12 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
           scope: '@confluentinc'
-
       - run: yarn install
         env:
           CI: true
-      - run: yarn lerna publish --yes --canary --preid ci --npm-tag=ci --force-publish=*
+
+      - run: yarn lerna bootstrap
+      # - run: yarn test
+      - run: yarn lerna publish --yes --canary --preid ci --npm-tag=ci --force-publish=* --registry https://npm.pkg.github.com/:authToken=${{secrets.GITHUB_TOKEN}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
