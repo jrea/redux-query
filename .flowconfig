@@ -2,7 +2,7 @@
 [ignore]
 
 [include]
-packages/*/src
+src
 
 [libs]
 
