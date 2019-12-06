@@ -157,7 +157,7 @@
         return o;
       }
       function m(t) {
-        return /[\/+]json($|[^-\w])/.test(t);
+        return /[/+]json($|[^-\w])/.test(t);
       }
       function _(t) {
         (this.req = t),

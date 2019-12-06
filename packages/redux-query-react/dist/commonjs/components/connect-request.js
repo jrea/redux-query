@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
-exports['default'] = void 0;
+exports['default'] = exports.headersChanged = void 0;
 
 var _hoistNonReactStatics = _interopRequireDefault(require('hoist-non-react-statics'));
 
@@ -194,6 +194,23 @@ var diffQueryConfigs = function diffQueryConfigs(prevQueryConfigs, queryConfigs)
     requestQueryConfigs: requestQueryConfigs,
   };
 };
+
+var headersChanged = function headersChanged(queryConfigs, previousQueryConfigs) {
+  return queryConfigs.forEach(function(config, i) {
+    if (previousQueryConfigs[i].options && queryConfigs[i].options) {
+      var prevHeaders = previousQueryConfigs[i].options.headers;
+      var headers = queryConfigs[i].options.headers;
+      console.log(prevHeaders, headers);
+
+      if (prevHeaders != null && headers != null) {
+        console.log(Object.values(prevHeaders) !== Object.values(headers));
+        return Object.values(prevHeaders) !== Object.values(headers);
+      }
+    }
+
+    return false;
+  });
+};
 /**
  * This hook memoizes the list of query configs that are returned form the `mapPropsToConfigs`
  * function. It also transforms the query configs to set `retry` to `true` and pass a
@@ -206,6 +223,8 @@ var diffQueryConfigs = function diffQueryConfigs(prevQueryConfigs, queryConfigs)
  * Memoization is handled by comparing query keys. If the list changes in size, or any query config
  * in the list's query key changes, an entirely new list of query configs is returned.
  */
+
+exports.headersChanged = headersChanged;
 
 var useMemoizedQueryConfigs = function useMemoizedQueryConfigs(mapPropsToConfigs, props, callback) {
   var queryConfigs = normalizeToArray(mapPropsToConfigs(props))
@@ -228,6 +247,7 @@ var useMemoizedQueryConfigs = function useMemoizedQueryConfigs(mapPropsToConfigs
     memoizedQueryConfigs = _React$useState2[0],
     setMemoizedQueryConfigs = _React$useState2[1];
 
+  var previousQueryConfigs = React.useRef(queryConfigs);
   var previousQueryKeys = React.useRef(queryConfigs.map(_reduxQuery.getQueryKey).filter(Boolean));
   React.useEffect(
     function() {
@@ -237,13 +257,14 @@ var useMemoizedQueryConfigs = function useMemoizedQueryConfigs(mapPropsToConfigs
         queryKeys.length !== previousQueryKeys.current.length ||
         queryKeys.some(function(queryKey, i) {
           return previousQueryKeys.current[i] !== queryKey;
-        })
+        }) ||
+        headersChanged(queryConfigs, previousQueryConfigs)
       ) {
         previousQueryKeys.current = queryKeys;
         setMemoizedQueryConfigs(queryConfigs);
       }
     },
-    [queryConfigs],
+    [queryConfigs, previousQueryConfigs],
   );
   return memoizedQueryConfigs;
 };

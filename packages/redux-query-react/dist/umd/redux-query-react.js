@@ -406,18 +406,33 @@
             c = y(u.useState(o), 2),
             i = c[0],
             f = c[1],
-            l = u.useRef(o.map(a.getQueryKey).filter(Boolean));
+            l = u.useRef(o),
+            s = u.useRef(o.map(a.getQueryKey).filter(Boolean));
           return (
             u.useEffect(
               function() {
                 var e = o.map(a.getQueryKey).filter(Boolean);
-                (e.length !== l.current.length ||
+                (e.length !== s.current.length ||
                   e.some(function(e, r) {
-                    return l.current[r] !== e;
-                  })) &&
-                  ((l.current = e), f(o));
+                    return s.current[r] !== e;
+                  }) ||
+                  (function(e, r) {
+                    return e.forEach(function(t, n) {
+                      if (r[n].options && e[n].options) {
+                        var o = r[n].options.headers,
+                          u = e[n].options.headers;
+                        if ((console.log(o, u), null != o && null != u))
+                          return (
+                            console.log(Object.values(o) !== Object.values(u)),
+                            Object.values(o) !== Object.values(u)
+                          );
+                      }
+                      return !1;
+                    });
+                  })(o, l)) &&
+                  ((s.current = e), f(o));
               },
-              [o],
+              [o, l],
             ),
             i
           );
@@ -513,8 +528,8 @@
             return o()(y, t);
           };
         },
-        g = c.a.createContext(null),
-        j = u.memo(function(e) {
+        j = c.a.createContext(null),
+        g = u.memo(function(e) {
           var r = e.queriesSelector,
             t = u.useMemo(
               function() {
@@ -522,10 +537,10 @@
               },
               [r],
             );
-          return u.createElement(g.Provider, { value: t }, e.children);
+          return u.createElement(j.Provider, { value: t }, e.children);
         }),
-        S = function(e) {
-          var r = u.useContext(g);
+        h = function(e) {
+          var r = u.useContext(j);
           if (!r)
             throw new Error(
               "Could not find redux-query-react's context. Be sure to render a redux-query <Provider> near the root of your React tree.",
@@ -563,7 +578,7 @@
             [f, o, n, l, s, c],
           );
         };
-      function h(e, r) {
+      function S(e, r) {
         return (
           (function(e) {
             if (Array.isArray(e)) return e;
@@ -597,11 +612,11 @@
       }
       var w = function(e) {
         var r = Object(i.useDispatch)(),
-          t = h(u.useState(null), 2),
+          t = S(u.useState(null), 2),
           n = t[0],
           o = t[1];
         return [
-          S(n),
+          h(n),
           u.useCallback(
             function() {
               var t = e.apply(void 0, arguments);
@@ -674,12 +689,12 @@
               }),
             )),
             n.forEach(function(r) {
-              C(e, r, t[r]);
+              E(e, r, t[r]);
             });
         }
         return e;
       }
-      function C(e, r, t) {
+      function E(e, r, t) {
         return (
           r in e
             ? Object.defineProperty(e, r, {
@@ -692,7 +707,7 @@
           e
         );
       }
-      var E = function(e) {
+      var C = function(e) {
         var r = Object(i.useDispatch)(),
           t = u.useRef(!1),
           n = f(function() {
@@ -702,7 +717,7 @@
             return R({}, e, { unstable_preDispatchCallback: n, retry: !0 });
           }),
           c = q(e, o),
-          l = S(c),
+          l = h(c),
           s = f(function(e) {
             var n = r(Object(a.requestAsync)(e));
             return n && (t.current = !0), n;
@@ -738,13 +753,13 @@
         return O;
       }),
         t.d(r, 'Provider', function() {
-          return j;
+          return g;
         }),
         t.d(r, 'useMutation', function() {
           return w;
         }),
         t.d(r, 'useRequest', function() {
-          return E;
+          return C;
         });
     },
   ]);
