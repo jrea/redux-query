@@ -1,9 +1,11 @@
 "use strict";
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = exports.headersChanged = void 0;
 
 var _hoistNonReactStatics = _interopRequireDefault(require("hoist-non-react-statics"));
 
@@ -15,9 +17,11 @@ var _reduxQuery = require("redux-query");
 
 var _useConstCallback = _interopRequireDefault(require("../hooks/use-const-callback"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -33,11 +37,13 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -80,6 +86,22 @@ var diffQueryConfigs = function diffQueryConfigs(prevQueryConfigs, queryConfigs)
     requestQueryConfigs: requestQueryConfigs
   };
 };
+
+var headersChanged = function headersChanged(queryConfigs, previousQueryConfigs) {
+  return queryConfigs.forEach(function (config, i) {
+    if (previousQueryConfigs[i] && queryConfigs[i] && previousQueryConfigs[i].options && queryConfigs[i].options) {
+      var prevHeaders = previousQueryConfigs[i].options.headers;
+      var headers = queryConfigs[i].options.headers;
+
+      if (prevHeaders != null && headers != null) {
+        var prevHeaderValues = Object.values(prevHeaders);
+        return Object.values(headers).some(function (value, i) {
+          return prevHeaderValues[i] !== value;
+        });
+      }
+    }
+  });
+};
 /**
  * This hook memoizes the list of query configs that are returned form the `mapPropsToConfigs`
  * function. It also transforms the query configs to set `retry` to `true` and pass a
@@ -93,6 +115,8 @@ var diffQueryConfigs = function diffQueryConfigs(prevQueryConfigs, queryConfigs)
  * in the list's query key changes, an entirely new list of query configs is returned.
  */
 
+
+exports.headersChanged = headersChanged;
 
 var useMemoizedQueryConfigs = function useMemoizedQueryConfigs(mapPropsToConfigs, props, callback) {
   var queryConfigs = normalizeToArray(mapPropsToConfigs(props)).map(function (queryConfig) {
@@ -113,17 +137,18 @@ var useMemoizedQueryConfigs = function useMemoizedQueryConfigs(mapPropsToConfigs
       memoizedQueryConfigs = _React$useState2[0],
       setMemoizedQueryConfigs = _React$useState2[1];
 
+  var previousQueryConfigs = React.useRef(queryConfigs);
   var previousQueryKeys = React.useRef(queryConfigs.map(_reduxQuery.getQueryKey).filter(Boolean));
   React.useEffect(function () {
     var queryKeys = queryConfigs.map(_reduxQuery.getQueryKey).filter(Boolean);
 
     if (queryKeys.length !== previousQueryKeys.current.length || queryKeys.some(function (queryKey, i) {
       return previousQueryKeys.current[i] !== queryKey;
-    })) {
+    }) || headersChanged(queryConfigs, previousQueryConfigs.current)) {
       previousQueryKeys.current = queryKeys;
       setMemoizedQueryConfigs(queryConfigs);
     }
-  }, [queryConfigs]);
+  }, [queryConfigs, previousQueryConfigs]);
   return memoizedQueryConfigs;
 };
 
@@ -138,7 +163,7 @@ var useMultiRequest = function useMultiRequest(mapPropsToConfigs, props) {
   // guarantees memoization, which is relied upon elsewhere in this hook to explicitly control when
   // certain side effects occur.
 
-  var dispatchRequestToRedux = (0, _useConstCallback.default)(function (queryConfig) {
+  var dispatchRequestToRedux = (0, _useConstCallback["default"])(function (queryConfig) {
     var promise = reduxDispatch((0, _reduxQuery.requestAsync)(queryConfig));
 
     if (promise) {
@@ -149,16 +174,16 @@ var useMultiRequest = function useMultiRequest(mapPropsToConfigs, props) {
       }
     }
   });
-  var dispatchCancelToRedux = (0, _useConstCallback.default)(function (queryKey) {
+  var dispatchCancelToRedux = (0, _useConstCallback["default"])(function (queryKey) {
     if (pendingRequests.current.has(queryKey)) {
       reduxDispatch((0, _reduxQuery.cancelQuery)(queryKey));
-      pendingRequests.current.delete(queryKey);
+      pendingRequests.current["delete"](queryKey);
     }
   }); // Query configs are memoized based on query key. As long as the query keys in the list don't
   // change, the query config list won't change.
 
   var queryConfigs = useMemoizedQueryConfigs(mapPropsToConfigs, props, function (queryKey) {
-    pendingRequests.current.delete(queryKey);
+    pendingRequests.current["delete"](queryKey);
   });
   var forceRequest = React.useCallback(function () {
     queryConfigs.forEach(function (requestReduxAction) {
@@ -224,12 +249,12 @@ var connectRequest = function connectRequest(mapPropsToConfigs, options) {
         }));
       });
       forwarded.displayName = displayName;
-      return (0, _hoistNonReactStatics.default)(forwarded, WrappedComponent);
+      return (0, _hoistNonReactStatics["default"])(forwarded, WrappedComponent);
     }
 
-    return (0, _hoistNonReactStatics.default)(ConnectRequest, WrappedComponent);
+    return (0, _hoistNonReactStatics["default"])(ConnectRequest, WrappedComponent);
   };
 };
 
 var _default = connectRequest;
-exports.default = _default;
+exports["default"] = _default;

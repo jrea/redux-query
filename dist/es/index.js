@@ -6,25 +6,25 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "connectRequest", {
   enumerable: true,
   get: function get() {
-    return _connectRequest.default;
+    return _connectRequest["default"];
   }
 });
 Object.defineProperty(exports, "Provider", {
   enumerable: true,
   get: function get() {
-    return _Provider.default;
+    return _Provider["default"];
   }
 });
 Object.defineProperty(exports, "useMutation", {
   enumerable: true,
   get: function get() {
-    return _useMutation.default;
+    return _useMutation["default"];
   }
 });
 Object.defineProperty(exports, "useRequest", {
   enumerable: true,
   get: function get() {
-    return _useRequest.default;
+    return _useRequest["default"];
   }
 });
 
@@ -36,4 +36,4 @@ var _useMutation = _interopRequireDefault(require("./hooks/use-mutation"));
 
 var _useRequest = _interopRequireDefault(require("./hooks/use-request"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }

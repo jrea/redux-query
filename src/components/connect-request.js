@@ -54,6 +54,24 @@ const diffQueryConfigs = (
   return { cancelKeys, requestQueryConfigs };
 };
 
+export const headersChanged = (
+  queryConfigs: Array<QueryConfig>,
+  previousQueryConfigs: Array<QueryConfig>,
+) => {
+  return queryConfigs.forEach((config, i) => {
+    if (previousQueryConfigs[i] && queryConfigs[i] && previousQueryConfigs[i].options && queryConfigs[i].options) {
+      const prevHeaders = previousQueryConfigs[i].options.headers;
+      const headers = queryConfigs[i].options.headers;
+      if (prevHeaders != null && headers != null) {
+        const prevHeaderValues = Object.values(prevHeaders);
+        return Object.values(headers).some((value, i) => {
+          return prevHeaderValues[i] !== value;
+         });
+      }
+    }
+  });
+};
+
 /**
  * This hook memoizes the list of query configs that are returned form the `mapPropsToConfigs`
  * function. It also transforms the query configs to set `retry` to `true` and pass a
@@ -71,24 +89,25 @@ const useMemoizedQueryConfigs = <Config>(
   props: Config,
   callback: (queryKey: QueryKey) => void,
 ) => {
-  const queryConfigs = normalizeToArray(mapPropsToConfigs(props))
-    .map(
-      (queryConfig: QueryConfig): ?QueryConfig => {
-        const queryKey = getQueryKey(queryConfig);
+  const queryConfigs: Array<QueryConfig> = normalizeToArray(mapPropsToConfigs(props))
+    .map((queryConfig: QueryConfig): ?QueryConfig => {
+      const queryKey = getQueryKey(queryConfig);
 
-        if (queryKey) {
-          return {
-            ...queryConfig,
-            retry: true,
-            unstable_preDispatchCallback: () => {
-              callback(queryKey);
-            },
-          };
-        }
-      },
-    )
+      if (queryKey) {
+        return {
+          ...queryConfig,
+          retry: true,
+          unstable_preDispatchCallback: () => {
+            callback(queryKey);
+          },
+        };
+      }
+    })
     .filter(Boolean);
   const [memoizedQueryConfigs, setMemoizedQueryConfigs] = React.useState(queryConfigs);
+
+  const previousQueryConfigs = React.useRef<Array<QueryConfig>>(queryConfigs);
+
   const previousQueryKeys = React.useRef<Array<QueryKey>>(
     queryConfigs.map(getQueryKey).filter(Boolean),
   );
@@ -98,12 +117,13 @@ const useMemoizedQueryConfigs = <Config>(
 
     if (
       queryKeys.length !== previousQueryKeys.current.length ||
-      queryKeys.some((queryKey, i) => previousQueryKeys.current[i] !== queryKey)
+      queryKeys.some((queryKey, i) => previousQueryKeys.current[i] !== queryKey) ||
+      headersChanged(queryConfigs, previousQueryConfigs.current)
     ) {
       previousQueryKeys.current = queryKeys;
       setMemoizedQueryConfigs(queryConfigs);
     }
-  }, [queryConfigs]);
+  }, [queryConfigs, previousQueryConfigs]);
 
   return memoizedQueryConfigs;
 };
